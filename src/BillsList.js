@@ -10,12 +10,6 @@ class BillsList extends Component {
 
         this.state = {
             addingBill: false,
-            bills: [
-                {
-                    title: "Electricity",
-                    amount: 1500
-                }
-            ],
         };
 
         this.showAddBillModal = this.showAddBillModal.bind(this);
@@ -24,7 +18,6 @@ class BillsList extends Component {
     }
 
     showAddBillModal() {
-        console.log('asd');
         this.setState({ addingBill: true });
     }
 
@@ -35,18 +28,16 @@ class BillsList extends Component {
     addBill(event) {
         event.preventDefault();
 
-        this.setState({
-            bills: [...this.state.bills, {
-                title: event.target.title.value,
-                amount: event.target.amount.value
-            }]
-        });
+        const { onAddBill } = this.props;
+
+        onAddBill(event.target.title.value, event.target.amount.value);
 
         this.hideAddBillModal();
     }
 
     render() {
-        const { addingBill, bills } = this.state;
+        const { addingBill } = this.state;
+        const { bills } = this.props;
 
         return (
             <div>

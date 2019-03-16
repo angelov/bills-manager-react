@@ -12,14 +12,37 @@ import './App.css';
 library.add(faPlus);
 
 class App extends Component {
-  render() {
-    return (
-        <Container style={{marginTop: 20}}>
-          <Header />
-          <Body />
-        </Container>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            bills: [
+                {
+                    title: "Electricity",
+                    amount: 1500
+                }
+            ],
+        };
+
+        this.onAddBill = this.onAddBill.bind(this);
+    }
+
+    onAddBill(title, amount) {
+        this.setState({
+            bills: [...this.state.bills, {title, amount}]
+        });
+    }
+
+    render() {
+        const { bills } = this.state;
+
+        return (
+            <Container style={{marginTop: 20}}>
+                <Header />
+                <Body bills={bills} onAddBill={this.onAddBill}/>
+            </Container>
+        );
+    }
 }
 
 const Header = () =>
@@ -30,13 +53,13 @@ const Header = () =>
       </Col>
     </Row>;
 
-const Body = () =>
+const Body = (props) =>
     <Row style={{marginTop: 20}}>
       <Col>
-        <BillsList />
+        <BillsList bills={props.bills} onAddBill={props.onAddBill} />
       </Col>
       <Col>
-        <Statistics />
+        <Statistics bills={props.bills} />
       </Col>
     </Row>;
 
