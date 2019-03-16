@@ -37,14 +37,14 @@ class BillsList extends Component {
 
     render() {
         const { addingBill } = this.state;
-        const { bills } = this.props;
+        const { bills, onPaidBill } = this.props;
 
         return (
             <div>
                 <h3>March 2019</h3>
 
                 {bills.map((bill) =>
-                    <BillCard title={bill.title} amount={bill.amount} />
+                    <BillCard bill={bill} onPaidBill={onPaidBill} />
                 )}
 
                 <AddBillModal visible={addingBill} onClose={this.hideAddBillModal} onSubmit={this.addBill} />

@@ -18,18 +18,33 @@ class App extends Component {
         this.state = {
             bills: [
                 {
+                    id: 1,
                     title: "Electricity",
-                    amount: 1500
+                    amount: 1500,
+                    paid: false,
                 }
             ],
         };
 
         this.onAddBill = this.onAddBill.bind(this);
+        this.onPaidBill = this.onPaidBill.bind(this);
     }
 
     onAddBill(title, amount) {
         this.setState({
-            bills: [...this.state.bills, {title, amount}]
+            bills: [...this.state.bills, {title, amount, paid: false, id: this.state.bills.length+1}]
+        });
+    }
+
+    onPaidBill(id) {
+        const updatedBills = this.state.bills.map((bill) => { return {
+            ...bill,
+            paid: bill.id === id ? true : bill.paid
+        }});
+
+        console.log(id);
+        this.setState({
+            bills: updatedBills
         });
     }
 
@@ -39,7 +54,7 @@ class App extends Component {
         return (
             <Container style={{marginTop: 20}}>
                 <Header />
-                <Body bills={bills} onAddBill={this.onAddBill}/>
+                <Body bills={bills} onAddBill={this.onAddBill} onPaidBill={this.onPaidBill} />
             </Container>
         );
     }
@@ -56,7 +71,7 @@ const Header = () =>
 const Body = (props) =>
     <Row style={{marginTop: 20}}>
       <Col>
-        <BillsList bills={props.bills} onAddBill={props.onAddBill} />
+        <BillsList bills={props.bills} onAddBill={props.onAddBill} onPaidBill={props.onPaidBill}/>
       </Col>
       <Col>
         <Statistics bills={props.bills} />

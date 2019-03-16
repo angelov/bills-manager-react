@@ -7,9 +7,11 @@ class Statistics extends Component {
     render() {
         const { bills } = this.props;
 
-        const thisMonthAmount = bills.map(bill => bill.amount).reduce((sum, amount) => parseFloat(sum) + parseFloat(amount));
-        const totalPaidAmount = thisMonthAmount; // @todo
-        const totalOwedAmount = thisMonthAmount; // @todo
+        console.log(bills);
+
+        const thisMonthAmount = bills.map(bill => bill.amount).reduce((sum, amount) => parseFloat(sum) + parseFloat(amount), 0);
+        const totalPaidAmount = bills.filter(bill => bill.paid).map(bill => bill.amount).reduce((sum, amount) => parseFloat(sum) + parseFloat(amount), 0);
+        const totalOwedAmount = bills.filter(bill => !bill.paid).map(bill => bill.amount).reduce((sum, amount) => parseFloat(sum) + parseFloat(amount), 0);
 
         return (
             <div>
