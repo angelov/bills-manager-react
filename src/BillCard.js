@@ -6,15 +6,17 @@ import Button from "react-bootstrap/Button";
 
 class BillCard extends Component {
     render() {
+        const { title, amount } = this.props;
+
         return (
             <Card style={{marginTop: 20}}>
                 <Card.Body>
                     <Row>
                         <Col>
-                            <h5>Electricity</h5>
+                            <h5>{title}</h5>
                         </Col>
                         <Col>
-                            <h5 className="text-muted text-right">1,000 MKD</h5>
+                            <h5 className="text-muted text-right">{amount} MKD</h5>
                         </Col>
                     </Row>
                     <Row>

@@ -4,7 +4,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import BillsList from "./BillsList.js";
 import Statistics from "./Statistics.js";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
+
 import './App.css';
+
+library.add(faPlus);
 
 class App extends Component {
   render() {
